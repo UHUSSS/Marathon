@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marathon CycleBack — Compra y vende ropa deportiva Marathon verificada</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230B3D91'/><text x='50' y='72' font-size='62' font-weight='800' font-family='Segoe UI,sans-serif' fill='white' text-anchor='middle'>m</text></svg>">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ============ TOPBAR (públic0) ============ -->
+<div class="topbar" id="topbar">
+  <div class="container topbar-inner">
+    <span>📦 Envíos a todo Ecuador con Servientrega</span>
+    <span class="topbar-right">
+      <a href="#" data-action="open-chat">🎧 Atención al cliente</a>
+      <a href="#" data-action="open-stores">📍 Tiendas Marathon</a>
+    </span>
+  </div>
+</div>
+
+<!-- ============ NAVBAR (pública) ============ -->
+<nav class="navbar" id="navbar">
+  <div class="container navbar-inner">
+    <a href="#/inicio" class="brand" aria-label="Marathon CycleBack — Inicio">
+      <img class="brand-logo" src="img/logo-icon.svg" alt="Marathon CycleBack">
+      <span class="brand-lockup">
+        <span class="brand-word">marathon</span>
+        <span class="brand-sub">COMPRA. VENDE. CONECTA.</span>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="#/inicio" data-nav="inicio">Inicio</a>
+      <a href="#/catalogo" data-nav="catalogo">Catálogo</a>
+      <a href="#/vender" data-nav="vender">Vender</a>
+      <a href="#/seguimiento" data-nav="seguimiento">Seguimiento</a>
+      <a href="#" data-action="how-it-works">¿Cómo funciona?</a>
+    </div>
+    <div class="nav-actions">
+      <input type="search" id="navSearch" class="nav-search" placeholder="Buscar productos…" aria-label="Buscar productos">
+      <button class="cart-btn" data-action="open-cart" aria-label="Carrito">🛒<span class="cart-count" id="cartCount">0</span></button>
+      <span class="nav-divider"></span>
+      <div class="account-area" id="accountArea"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ BARRA DEL PANEL (Página 3, reemplaza a las públicas) ============ -->
+<nav class="panelbar" id="panelbar" hidden>
+  <div class="container panelbar-inner">
+    <a href="#/inicio" class="brand" aria-label="Ir al inicio">
+      <img class="brand-logo brand-logo-sm" src="img/logo-icon.svg" alt="Marathon CycleBack">
+      <span class="brand-word brand-word-sm">marathon</span>
+    </a>
+    <div class="panel-tabs">
+      <a href="#" class="active" data-paneltab="panel">📊 Panel</a>
+      <a href="#" data-paneltab="publicaciones">📋 Mis publicaciones</a>
+      <a href="#" data-paneltab="historial">🕐 Historial</a>
+      <a href="#" data-paneltab="configuracion">⚙️ Configuración</a>
+    </div>
+    <div class="panel-user" id="panelUser">
+      <button class="bell" data-action="notifications" aria-label="Notificaciones">🔔<span class="bell-dot" id="bellDot" hidden></span></button>
+      <div class="notif-menu" id="notifMenu" hidden></div>
+      <button class="user-block" data-action="user-menu">
+        <span class="avatar" id="panelAvatar">AH</span>
+        <span class="user-meta"><strong id="panelName">Vendedor</strong><span class="badge badge-green">✅ Vendedor verificado</span></span>
+      </button>
+      <div class="user-menu" id="userMenu" hidden>
+        <a href="#/inicio">Ir al inicio</a>
+        <a href="#" data-action="logout">Cerrar sesión</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ VISTAS ============ -->
+<main id="app">
+  <!-- Página 1: Inicio -->
+  <section id="view-inicio" class="view">
+    <header class="hero">
+      <div class="hero-circle"></div>
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <span class="hero-pill">♻️ Economía circular deportiva · Ecuador</span>
+          <h1>Compra y vende ropa<br>deportiva Marathon<br>usada, <mark>verificada con<br>tu factura.</mark></h1>
+          <p>Cada producto es validado con el número de factura original de Marathon Sports antes de publicarse. Auténtico, seguro y sostenible.</p>
+          <div class="hero-cta">
+            <button class="btn btn-red" data-action="scroll-catalog">🔍 Ver catálogo</button>
+            <button class="btn btn-ghost" data-action="want-to-sell">🏷️ Quiero vender</button>
+          </div>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-card"><strong>+300</strong><span>Productos verificados</span></div>
+          <div class="stat-card stat-red"><strong>8%</strong><span>Comisión Marathon</span></div>
+          <div class="stat-card"><strong>24h</strong><span>Validación de factura</span></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Barra de pasos -->
+    <div class="steps-bar">
+      <div class="container steps-inner">
+        <div class="step"><span class="step-num">1</span><div><strong>Publica tu producto</strong><span>Fotos + N° de factura Marathon</span></div></div>
+        <span class="step-arrow">→</span>
+        <div class="step"><span class="step-num">2</span><div><strong>Marathon verifica</strong><span>Valida la factura en menos de 24h</span></div></div>
+        <span class="step-arrow">→</span>
+        <div class="step"><span class="step-num">3</span><div><strong>Se publica con sello</strong><span>Certificado digital Marathon</span></div></div>
+        <span class="step-arrow">→</span>
+        <div class="step"><span class="step-num step-check">✓</span><div><strong>Recibe tu pago</strong><span>Cupón Marathon o depósito</span></div></div>
+      </div>
+    </div>
+
+    <!-- Catálogo embebido -->
+    <section class="catalog-section" id="homeCatalog">
+      <div class="container">
+        <span class="section-tag">Catálogo verificado</span>
+        <h2 class="section-title">Productos disponibles ahora</h2>
+        <div class="category-tabs" data-catalog="home">
+          <button class="cat-tab active" data-category="todo">Todo</button>
+          <button class="cat-tab" data-category="camisetas">Camisetas</button>
+          <button class="cat-tab" data-category="calzado">Calzado</button>
+          <button class="cat-tab" data-category="shorts">Shorts</button>
+          <button class="cat-tab" data-category="accesorios">Accesorios</button>
+        </div>
+        <div class="product-grid" id="homeGrid"></div>
+      </div>
+    </section>
+
+    <!-- Banner CTA vender -->
+    <section class="cta-banner">
+      <div class="container cta-inner">
+        <span class="cta-icon">🏷️</span>
+        <div class="cta-copy">
+          <h3>¿Tienes ropa Marathon que ya no usas?</h3>
+          <p>Publica tu artículo con el N° de factura original y recibe el <mark>92% del precio de venta</mark> como <mark>cupón de descuento</mark> en Marathon o <mark>depósito bancario</mark>.</p>
+        </div>
+        <div class="cta-actions">
+          <button class="btn btn-red" data-action="go-sell">Publicar artículo</button>
+          <button class="btn btn-ghost" data-action="how-it-works">¿Cómo funciona?</button>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- Página 2: Catálogo -->
+  <section id="view-catalogo" class="view catalog-page" hidden>
+    <div class="container">
+      <span class="section-tag">Catálogo verificado</span>
+      <h2 class="section-title">Productos disponibles ahora <span class="result-count" id="catalogCount"></span></h2>
+      <div class="category-tabs" data-catalog="full">
+        <button class="cat-tab active" data-category="todo">Todo</button>
+        <button class="cat-tab" data-category="camisetas">Camisetas</button>
+        <button class="cat-tab" data-category="calzado">Calzado</button>
+        <button class="cat-tab" data-category="shorts">Shorts</button>
+        <button class="cat-tab" data-category="accesorios">Accesorios</button>
+      </div>
+      <div class="product-grid" id="catalogGrid"></div>
+    </div>
+  </section>
+
+  <!-- Página 3: Vender (panel del vendedor) — se renderiza por JS -->
+  <section id="view-vender" class="view seller-page" hidden>
+    <div class="container" id="sellerContent"></div>
+  </section>
+
+  <!-- Página 4: Seguimiento de pedido -->
+  <section id="view-seguimiento" class="view tracking-page" hidden>
+    <div class="container">
+      <div class="tracking-head">
+        <h2>Seguimiento de mi pedido</h2>
+        <p>Ingresa tu número de orden para ver en qué etapa se encuentra tu artículo.</p>
+        <form class="tracking-search" id="trackingForm">
+          <input type="text" id="trackingInput" placeholder="Ej. MKT-2026-00145" aria-label="Número de orden">
+          <button type="submit" class="btn btn-blue">Buscar pedido</button>
+        </form>
+      </div>
+      <div id="myOrders"></div>
+      <div id="trackingResult"></div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer" id="footer">
+  <div class="container footer-inner">
+    <span>🏆 Marathon CycleBack · <em>Ecuador</em></span>
+    <div class="footer-links">
+      <a href="#" data-content="terminos">Términos</a>
+      <a href="#" data-content="privacidad">Privacidad</a>
+      <a href="#" data-content="contacto">Contacto</a>
+      <a href="#" data-content="instagram">Instagram</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ CHATBOT ============ -->
+<button class="chat-fab bounce" id="chatFab" aria-label="Abrir chat">
+  <svg viewBox="0 0 24 24" width="27" height="27" aria-hidden="true">
+    <path d="M12 3C7 3 3 6.6 3 11c0 2.2 1 4.2 2.7 5.6-.1 1.1-.5 2.3-1.4 3.3-.2.2 0 .6.3.6 1.9-.1 3.5-.8 4.6-1.5.9.3 1.8.4 2.8.4 5 0 9-3.6 9-8.1S17 3 12 3z" fill="#fff"/>
+    <circle cx="8.3" cy="11" r="1.15" fill="#0B3D91"/>
+    <circle cx="12" cy="11" r="1.15" fill="#0B3D91"/>
+    <circle cx="15.7" cy="11" r="1.15" fill="#0B3D91"/>
+  </svg>
+</button>
+<div class="chat-window" id="chatWindow" hidden>
+  <div class="chat-header">
+    <span class="chat-logo"><img src="img/logo-icon.svg" alt=""></span>
+    <div><strong>Asistente Marathon</strong><span class="chat-status"><span class="dot-green"></span> en línea</span></div>
+    <button class="chat-close" data-action="close-chat" aria-label="Cerrar chat">✕</button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-quick-bar">
+    <button class="chat-quick-toggle" id="quickToggle" type="button">💡 Preguntas frecuentes <span class="chev" id="quickChev">▾</span></button>
+    <div class="chat-quick-panel" id="chatQuick" hidden></div>
+  </div>
+  <form class="chat-input" id="chatForm">
+    <input type="text" id="chatText" placeholder="Escribe tu pregunta…" autocomplete="off">
+    <button type="submit" class="btn btn-blue btn-sm">Enviar</button>
+  </form>
+</div>
+
+<!-- ============ MODAL GENÉRICO + TOAST ============ -->
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal" id="modalBox" role="dialog" aria-modal="true"></div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>

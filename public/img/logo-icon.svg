@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-14 -10 248 220">
+  <!-- Flecha roja (reutilización) -->
+  <path d="M30 116 C18 64, 56 30, 92 25" fill="none" stroke="#D92B2B" stroke-width="13" stroke-linecap="round"/>
+  <polygon points="86,8 122,24 88,44" fill="#D92B2B"/>
+  <!-- Flecha azul oscura (circularidad) -->
+  <path d="M162 38 C198 60, 204 116, 174 146" fill="none" stroke="#12295E" stroke-width="11" stroke-linecap="round"/>
+  <polygon points="190,132 168,164 154,132" fill="#12295E"/>
+  <!-- Caja de cartón -->
+  <polygon points="16,146 62,146 62,180 16,180" fill="#C89A6B"/>
+  <polygon points="16,146 39,138 62,146 39,154" fill="#E2B983"/>
+  <polygon points="16,146 4,134 30,130 39,143" fill="#B07F4F"/>
+  <polygon points="62,146 74,134 48,130 39,143" fill="#B07F4F"/>
+  <!-- Asa de la bolsa -->
+  <path d="M82 66 v-16 a19 19 0 0 1 38 0 v16" fill="none" stroke="#12295E" stroke-width="9" stroke-linecap="round"/>
+  <!-- Cuerpo de la bolsa -->
+  <path d="M62 62 h78 l13 92 a6 6 0 0 1 -6 7 h-92 a6 6 0 0 1 -6 -7 z" fill="#1748A8"/>
+  <!-- Pliegue rojo lateral -->
+  <polygon points="140,62 153,156 118,161 112,62" fill="#D92B2B"/>
+  <path d="M140 62 l13 92 a6 6 0 0 1 -6 7 h-12 z" fill="#B71F1F"/>
+  <!-- Emblema m -->
+  <rect x="70" y="82" width="58" height="58" rx="13" fill="#D92B2B"/>
+  <rect x="75" y="87" width="48" height="48" rx="10" fill="#FFFFFF"/>
+  <rect x="80" y="92" width="38" height="38" rx="8" fill="#1748A8"/>
+  <text x="99" y="122" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="800" fill="#FFFFFF" text-anchor="middle">m</text>
+  <!-- Etiqueta de precio -->
+  <g transform="rotate(38 178 158)">
+    <rect x="158" y="148" width="42" height="22" rx="6" fill="#1A5CC8"/>
+    <circle cx="166" cy="159" r="4" fill="#FFFFFF"/>
+    <line x1="158" y1="159" x2="146" y2="159" stroke="#12295E" stroke-width="2.5"/>
+  </g>
+</svg>

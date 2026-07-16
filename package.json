@@ -1,0 +1,17 @@
+{
+  "name": "marathon-cycleback",
+  "version": "1.0.0",
+  "description": "Marathon CycleBack — Tienda de artículos deportivos Marathon usados y verificados (POC)",
+  "main": "server.js",
+  "scripts": {
+    "setup": "node scripts/setup-db.js",
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": ["marathon", "cycleback", "ecommerce", "poc"],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mysql2": "^3.11.0"
+  }
+}

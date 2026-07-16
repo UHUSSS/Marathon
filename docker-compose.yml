@@ -1,0 +1,36 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: cycleback-db
+    environment:
+      MYSQL_ROOT_PASSWORD: marathon
+    volumes:
+      # El schema y el seed se ejecutan automáticamente en el primer arranque
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./db/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+      - dbdata:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pmarathon"]
+      interval: 5s
+      timeout: 4s
+      retries: 25
+    restart: unless-stopped
+
+  app:
+    build: .
+    container_name: cycleback-app
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: marathon
+      DB_NAME: marathon_cycleback
+      DB_PORT: 3306
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  dbdata:
