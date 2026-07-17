@@ -530,12 +530,16 @@ mark { background: transparent; color: var(--amarillo); font-weight: 700; }
   .topbar-inner { justify-content: center; }
   .topbar-inner > span:first-child { display: none; }
 
-  .navbar-inner { gap: 9px; height: 60px; }
-  .brand-logo { height: 40px; }
+  /* Navbar en dos filas: marca + iconos arriba, buscador a lo ancho abajo */
+  .navbar-inner { flex-wrap: wrap; height: auto; gap: 9px 10px; padding-top: 9px; padding-bottom: 11px; }
+  .nav-actions { display: contents; }
+  .brand { margin-right: auto; gap: 8px; }
+  .brand-logo { height: 38px; }
   .brand-word { font-size: 14px; padding: 0 9px 2px; }
   .brand-sub { display: none; }
-  .nav-search { width: 0; flex: 1; min-width: 76px; padding: 7px 10px; }
+  .nav-search { order: 10; flex: 1 1 100%; width: 100%; min-width: 0; padding: 9px 13px; }
   .nav-divider { display: none; }
+  .cart-btn { font-size: 22px; }
   .acct-name, .acct-caret { display: none; }
   .account-area .user-block { padding: 4px; }
 
