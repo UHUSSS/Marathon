@@ -93,6 +93,7 @@ function renderAccountArea() {
 async function render() {
   const route = currentRoute();
   renderAccountArea();
+  closeMobileMenu();
 
   // Página 3 exige sesión iniciada
   if (route === 'vender' && !state.session) { openLoginModal('vender'); navigate('inicio'); return; }
@@ -114,6 +115,20 @@ async function render() {
   window.scrollTo({ top: 0 });
 }
 window.addEventListener('hashchange', render);
+
+// ---------------- Menú móvil (hamburguesa) ----------------
+function closeMobileMenu() {
+  $('.nav-links').classList.remove('open');
+  $('#navToggle').setAttribute('aria-expanded', 'false');
+}
+$('#navToggle').addEventListener('click', () => {
+  const open = $('.nav-links').classList.toggle('open');
+  $('#navToggle').setAttribute('aria-expanded', open);
+});
+$$('.nav-links a').forEach(a => a.addEventListener('click', closeMobileMenu));
+document.addEventListener('click', e => {
+  if (!e.target.closest('.navbar')) closeMobileMenu();
+}, true);
 
 // =====================================================
 //  CATÁLOGO (Páginas 1 y 2)
@@ -879,16 +894,18 @@ function openChat(orderContext = null) {
   $('#chatFab').classList.remove('bounce');
   if (state.chatFirstOpen) {
     state.chatFirstOpen = false;
-    botSay('¡Hola! 👋 Soy el asistente de Marathon CycleBack. ¿En qué puedo ayudarte hoy? Toca <strong>Preguntas frecuentes</strong> o escríbeme directamente.');
+    botSay('¡Hola! 👋 Soy el asistente de Marathon CycleBack. Toca una de las <strong>preguntas frecuentes</strong> de abajo y te respondo al instante.');
     $('#chatQuick').innerHTML = QUICK_REPLIES.map(q => `<button class="quick-btn" type="button">${q}</button>`).join('');
     $$('#chatQuick .quick-btn').forEach(b => b.addEventListener('click', () => {
       toggleQuickPanel(false);                          // colapsa el panel para dejar la conversación limpia
       sendChat(b.textContent.replace(/^\S+\s/, ''));
     }));
     $('#quickToggle').addEventListener('click', () => toggleQuickPanel());
+    toggleQuickPanel(true);                             // sin campo de texto: las preguntas son la única entrada
   }
   if (orderContext) {
-    botSay(`Veo que necesitas ayuda con tu pedido <strong>${orderContext}</strong>. Cuéntame qué sucede y, si es necesario, te conecto con un asesor que ya tendrá tu número de orden a la vista.`);
+    botSay(`Veo que necesitas ayuda con tu pedido <strong>${orderContext}</strong>. Elige una de las preguntas frecuentes o habla directamente con un asesor, que ya tendrá tu número de orden a la vista.<br><button class="btn btn-blue btn-sm" onclick="escalateChat()">🗣️ Hablar con un asesor</button>`);
+    toggleQuickPanel(true);
   }
 }
 function closeChat() { $('#chatWindow').hidden = true; }
@@ -909,6 +926,7 @@ function userSay(text) {
   $('#chatBody').scrollTop = $('#chatBody').scrollHeight;
 }
 
+// El chat es guiado: solo se envían las preguntas predefinidas (no hay entrada libre)
 async function sendChat(text) {
   if (!text) return;
   userSay(text);
@@ -919,18 +937,12 @@ async function sendChat(text) {
   } catch {
     botSay('Ups, tuve un problema de conexión. Intenta de nuevo en unos segundos.');
   }
+  toggleQuickPanel(true); // vuelve a mostrar las preguntas para continuar la conversación
 }
 function escalateChat() {
   botSay('🗣️ Te estamos conectando con un asesor del equipo de atención al cliente de Marathon. Tiempo estimado de espera: <strong>2 minutos</strong>. Un agente continuará esta conversación.');
 }
 window.escalateChat = escalateChat;
-
-$('#chatForm').addEventListener('submit', e => {
-  e.preventDefault();
-  const input = $('#chatText');
-  sendChat(input.value.trim());
-  input.value = '';
-});
 
 // =====================================================
 //  MODALES: cómo funciona, vender, tiendas, contenido legal, login
