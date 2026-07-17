@@ -73,7 +73,7 @@ function renderAccountArea() {
   const box = $('#accountArea');
   if (!box) return;
   if (!state.session) {
-    box.innerHTML = `<button class="btn btn-outline btn-sm" data-action="account">👤 Iniciar sesión</button>`;
+    box.innerHTML = `<button class="btn btn-outline btn-sm login-btn" data-action="account">👤<span class="login-label">Iniciar sesión</span></button>`;
     return;
   }
   const firstName = state.session.name.split(' ')[0];
