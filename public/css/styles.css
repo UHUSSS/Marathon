@@ -71,8 +71,8 @@ mark { background: transparent; color: var(--amarillo); font-weight: 700; }
 .navbar { background: #fff; border-bottom: 1px solid #e5e9f2; position: sticky; top: 0; z-index: 50; }
 .navbar-inner { display: flex; align-items: center; gap: 26px; height: 68px; }
 .brand { display: flex; align-items: center; gap: 10px; }
-.brand-logo { height: 52px; width: auto; max-width: 220px; display: block; flex-shrink: 0; object-fit: contain; }
-.brand-logo-sm { height: 40px; }
+.brand-logo { height: 63px; width: auto; max-width: 270px; display: block; flex-shrink: 0; object-fit: contain; }
+.brand-logo-sm { height: 63px; }
 .brand-word {
   background: var(--rojo); color: #fff; font-weight: 800; font-size: 17px;
   letter-spacing: .6px; padding: 1px 12px 3px; border-radius: 7px;
@@ -217,8 +217,8 @@ mark { background: transparent; color: var(--amarillo); font-weight: 700; }
 .footer-links a:hover { color: #fff; }
 
 /* ---------- Página 3: barra del panel ---------- */
-.panelbar { background: #fff; height: 62px; box-shadow: var(--sombra); position: sticky; top: 0; z-index: 50; }
-.panelbar-inner { display: flex; align-items: center; gap: 30px; height: 62px; }
+.panelbar { background: #fff; height: 68px; box-shadow: var(--sombra); position: sticky; top: 0; z-index: 50; }
+.panelbar-inner { display: flex; align-items: center; gap: 30px; height: 68px; }
 .panel-tabs { display: flex; gap: 6px; font-size: 13.5px; font-weight: 700; }
 .panel-tabs a { color: var(--texto-sec); padding: 8px 14px; border-radius: 8px; transition: all .15s; }
 .panel-tabs a:hover { color: var(--azul); background: var(--azul-claro); }
