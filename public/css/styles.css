@@ -69,10 +69,10 @@ mark { background: transparent; color: var(--amarillo); font-weight: 700; }
 
 /* ---------- Navbar ---------- */
 .navbar { background: #fff; border-bottom: 1px solid #e5e9f2; position: sticky; top: 0; z-index: 50; }
-.navbar-inner { display: flex; align-items: center; gap: 26px; height: 78px; }
+.navbar-inner { display: flex; align-items: center; gap: 26px; height: 68px; }
 .brand { display: flex; align-items: center; gap: 10px; }
-.brand-logo { height: 68px; width: auto; display: block; flex-shrink: 0; }
-.brand-logo-sm { height: 52px; }
+.brand-logo { height: 52px; width: auto; max-width: 220px; display: block; flex-shrink: 0; object-fit: contain; }
+.brand-logo-sm { height: 40px; }
 .brand-word {
   background: var(--rojo); color: #fff; font-weight: 800; font-size: 17px;
   letter-spacing: .6px; padding: 1px 12px 3px; border-radius: 7px;
@@ -503,7 +503,7 @@ mark { background: transparent; color: var(--amarillo); font-weight: 700; }
 }
 .card-field input {
   width: 100%; border: 1.5px solid #d4deef; border-radius: 9px;
-  padding: 11px 13px 11px 40px; font-size: 15px; font-family: 'Segoe UI', monospace;
+  padding: 11px 13px; font-size: 15px; font-family: 'Segoe UI', monospace;
   background: #fff; transition: border-color .15s, box-shadow .15s; letter-spacing: .8px;
 }
 .card-field input:focus {

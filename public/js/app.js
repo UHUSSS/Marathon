@@ -318,11 +318,11 @@ async function openCheckout() {
     <div class="delivery-choice">
       <label class="payout-option selected" id="optServi">
         <input type="radio" name="delivery" value="servientrega" checked>
-        <span><strong>📦 Envío por Servientrega</strong><span class="opt-sub">Entrega a domicilio en todo Ecuador</span></span>
+        <span><strong>Envío por Servientrega</strong><span class="opt-sub">Entrega a domicilio en todo Ecuador</span></span>
       </label>
       <label class="payout-option" id="optRetiro">
         <input type="radio" name="delivery" value="retiro">
-        <span><strong>🏬 Retiro en tienda física Marathon</strong><span class="opt-sub">Sin costo, en la tienda que elijas</span></span>
+        <span><strong>Retiro en tienda física Marathon</strong><span class="opt-sub">Sin costo, en la tienda que elijas</span></span>
       </label>
     </div>
     <div id="addressField">
@@ -337,19 +337,18 @@ async function openCheckout() {
     <div class="payment-choice">
       <label class="payout-option selected" id="optTarjeta">
         <input type="radio" name="payment" value="tarjeta" checked>
-        <span><strong>💳 Tarjeta de crédito / débito</strong><span class="opt-sub">Visa, Mastercard, American Express</span></span>
+        <span><strong>Tarjeta de crédito / débito</strong><span class="opt-sub">Visa, Mastercard, American Express</span></span>
       </label>
       <label class="payout-option" id="optTransfer">
         <input type="radio" name="payment" value="transferencia">
-        <span><strong>🏦 Transferencia bancaria</strong><span class="opt-sub">Depósito o transferencia directa</span></span>
+        <span><strong>Transferencia bancaria</strong><span class="opt-sub">Depósito o transferencia directa</span></span>
       </label>
     </div>
     <div id="cardFields" class="card-fields">
-      <div class="card-fields-title"><span class="card-shield">🔒</span> Datos de tu tarjeta</div>
+      <div class="card-fields-title">Datos de tu tarjeta</div>
       <div class="card-row">
         <div class="card-field">
           <label>Número de tarjeta</label>
-          <span class="field-icon">💳</span>
           <input type="text" id="ckCardNumber" placeholder="1234 5678 9012 3456" maxlength="19" inputmode="numeric" autocomplete="cc-number">
           <span class="card-brand" id="cardBrand"></span>
         </div>
@@ -357,35 +356,32 @@ async function openCheckout() {
       <div class="card-row">
         <div class="card-field">
           <label>Nombre del titular</label>
-          <span class="field-icon">👤</span>
           <input type="text" id="ckCardName" placeholder="Como aparece en la tarjeta" autocomplete="cc-name">
         </div>
       </div>
       <div class="card-row card-row-half">
         <div class="card-field">
           <label>Fecha de vencimiento</label>
-          <span class="field-icon">📅</span>
           <input type="text" id="ckCardExpiry" placeholder="MM/AA" maxlength="5" inputmode="numeric" autocomplete="cc-exp">
         </div>
         <div class="card-field">
           <label>CVV</label>
-          <span class="field-icon">🔐</span>
           <input type="text" id="ckCardCvv" placeholder="•••" maxlength="4" inputmode="numeric" autocomplete="cc-csc">
         </div>
       </div>
-      <div class="card-secure"><span class="lock-icon">🛡️</span> Pago seguro · Tus datos están protegidos</div>
+      <div class="card-secure">Pago seguro · Tus datos están protegidos</div>
     </div>
     <div id="transferFields" class="transfer-fields" hidden>
-      <div class="transfer-fields-title">🏦 Datos para la transferencia</div>
+      <div class="transfer-fields-title">Datos para la transferencia</div>
       <div class="transfer-detail"><span>Banco</span><strong>Banco Pichincha</strong></div>
       <div class="transfer-detail"><span>Tipo de cuenta</span><strong>Cuenta de Ahorros</strong></div>
       <div class="transfer-detail"><span>N° de cuenta</span><strong>2205 1234 5678</strong></div>
       <div class="transfer-detail"><span>Titular</span><strong>Marathon CycleBack S.A.</strong></div>
       <div class="transfer-detail"><span>RUC</span><strong>1791234567001</strong></div>
       <div class="transfer-detail"><span>Monto a transferir</span><strong>${money(total)}</strong></div>
-      <div class="transfer-note">⚠️ Realiza la transferencia por el monto exacto de <strong>${money(total)}</strong> y sube tu comprobante a continuación. Tu pedido se confirmará una vez verificado el pago.</div>
+      <div class="transfer-note">Realiza la transferencia por el monto exacto de <strong>${money(total)}</strong> y sube tu comprobante a continuación. Tu pedido se confirmará una vez verificado el pago.</div>
       <label class="transfer-voucher" id="voucherDrop">
-        📎 Haz clic aquí para subir tu comprobante de pago
+        Haz clic aquí para subir tu comprobante de pago
         <input type="file" id="voucherInput" accept="image/*,.pdf" hidden>
       </label>
       <div id="voucherName" style="text-align:center;font-size:12px;color:var(--verde);font-weight:700;margin-top:6px"></div>
@@ -524,12 +520,12 @@ async function openCheckout() {
       if (currentRoute() === 'inicio') loadCatalog('home');
       if (currentRoute() === 'catalogo') loadCatalog('full');
       openModal(`
-        <h3 style="color:var(--verde)">✅ ¡Compra confirmada!</h3>
+        <h3 style="color:var(--verde)">¡Compra confirmada!</h3>
         <p>Tu pedido fue registrado con éxito. Guarda tu número de seguimiento:</p>
         <div class="cert-box"><strong>N° de seguimiento: ${result.orderNumber}</strong>
           ${result.trackingGuide ? `<div class="cert-line"><span>Guía Servientrega</span><b>${result.trackingGuide}</b></div>` : ''}
           <div class="cert-line"><span>Total pagado</span><b>${money(result.total)}</b></div>
-          <div class="cert-line"><span>Método de pago</span><b>${paymentMethod === 'tarjeta' ? '💳 Tarjeta ····' + (cardData.cardNumber || '').slice(-4) : '🏦 Transferencia'}</b></div>
+          <div class="cert-line"><span>Método de pago</span><b>${paymentMethod === 'tarjeta' ? 'Tarjeta ····' + (cardData.cardNumber || '').slice(-4) : 'Transferencia bancaria'}</b></div>
         </div>
         <div class="modal-actions">
           <button class="btn btn-outline" onclick="closeModal()">Cerrar</button>
