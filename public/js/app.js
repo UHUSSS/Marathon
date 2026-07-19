@@ -334,29 +334,146 @@ async function openCheckout() {
       <select id="ckStore">${state.stores.map(s => `<option value="${s.id}">${s.name} — ${s.city}</option>`).join('')}</select>
     </div>
     <label style="margin-top:12px">Método de pago</label>
-    <select id="ckPayment">
-      <option value="tarjeta">💳 Tarjeta de crédito / débito</option>
-      <option value="transferencia">🏦 Transferencia bancaria</option>
-    </select>
+    <div class="payment-choice">
+      <label class="payout-option selected" id="optTarjeta">
+        <input type="radio" name="payment" value="tarjeta" checked>
+        <span><strong>💳 Tarjeta de crédito / débito</strong><span class="opt-sub">Visa, Mastercard, American Express</span></span>
+      </label>
+      <label class="payout-option" id="optTransfer">
+        <input type="radio" name="payment" value="transferencia">
+        <span><strong>🏦 Transferencia bancaria</strong><span class="opt-sub">Depósito o transferencia directa</span></span>
+      </label>
+    </div>
+    <div id="cardFields" class="card-fields">
+      <div class="card-fields-title"><span class="card-shield">🔒</span> Datos de tu tarjeta</div>
+      <div class="card-row">
+        <div class="card-field">
+          <label>Número de tarjeta</label>
+          <span class="field-icon">💳</span>
+          <input type="text" id="ckCardNumber" placeholder="1234 5678 9012 3456" maxlength="19" inputmode="numeric" autocomplete="cc-number">
+          <span class="card-brand" id="cardBrand"></span>
+        </div>
+      </div>
+      <div class="card-row">
+        <div class="card-field">
+          <label>Nombre del titular</label>
+          <span class="field-icon">👤</span>
+          <input type="text" id="ckCardName" placeholder="Como aparece en la tarjeta" autocomplete="cc-name">
+        </div>
+      </div>
+      <div class="card-row card-row-half">
+        <div class="card-field">
+          <label>Fecha de vencimiento</label>
+          <span class="field-icon">📅</span>
+          <input type="text" id="ckCardExpiry" placeholder="MM/AA" maxlength="5" inputmode="numeric" autocomplete="cc-exp">
+        </div>
+        <div class="card-field">
+          <label>CVV</label>
+          <span class="field-icon">🔐</span>
+          <input type="text" id="ckCardCvv" placeholder="•••" maxlength="4" inputmode="numeric" autocomplete="cc-csc">
+        </div>
+      </div>
+      <div class="card-secure"><span class="lock-icon">🛡️</span> Pago seguro · Tus datos están protegidos</div>
+    </div>
     <p class="form-error" id="ckError"></p>
     <div class="modal-actions">
       <button class="btn btn-outline" onclick="closeModal()">Volver</button>
       <button class="btn btn-red" id="ckConfirm">Confirmar compra</button>
     </div>`);
 
-  const sync = () => {
+  // --- Sincronizar método de entrega ---
+  const syncDelivery = () => {
     const isServi = $('input[name=delivery]:checked').value === 'servientrega';
     $('#addressField').hidden = !isServi;
     $('#storeField').hidden = isServi;
     $('#optServi').classList.toggle('selected', isServi);
     $('#optRetiro').classList.toggle('selected', !isServi);
   };
-  $$('input[name=delivery]').forEach(r => r.addEventListener('change', sync));
+  $$('input[name=delivery]').forEach(r => r.addEventListener('change', syncDelivery));
 
+  // --- Sincronizar método de pago (mostrar/ocultar campos de tarjeta) ---
+  const syncPayment = () => {
+    const isTarjeta = $('input[name=payment]:checked').value === 'tarjeta';
+    $('#cardFields').hidden = !isTarjeta;
+    $('#optTarjeta').classList.toggle('selected', isTarjeta);
+    $('#optTransfer').classList.toggle('selected', !isTarjeta);
+  };
+  $$('input[name=payment]').forEach(r => r.addEventListener('change', syncPayment));
+
+  // --- Formateo automático del número de tarjeta ---
+  const cardNumInput = $('#ckCardNumber');
+  cardNumInput.addEventListener('input', () => {
+    let v = cardNumInput.value.replace(/\D/g, '').slice(0, 16);
+    cardNumInput.value = v.replace(/(.{4})/g, '$1 ').trim();
+    // Detección de marca
+    const brand = $('#cardBrand');
+    const d = v.slice(0, 2);
+    const d1 = v.charAt(0);
+    if (d1 === '4') brand.textContent = '🅅'; // Visa
+    else if (['51','52','53','54','55'].includes(d)) brand.textContent = 'Ⓜ'; // Mastercard
+    else if (['34','37'].includes(d)) brand.textContent = '🅰'; // Amex
+    else brand.textContent = '';
+  });
+
+  // --- Formateo automático de la fecha de vencimiento ---
+  const expiryInput = $('#ckCardExpiry');
+  expiryInput.addEventListener('input', () => {
+    let v = expiryInput.value.replace(/\D/g, '').slice(0, 4);
+    if (v.length >= 3) v = v.slice(0, 2) + '/' + v.slice(2);
+    expiryInput.value = v;
+  });
+
+  // --- Solo números en CVV ---
+  const cvvInput = $('#ckCardCvv');
+  cvvInput.addEventListener('input', () => {
+    cvvInput.value = cvvInput.value.replace(/\D/g, '').slice(0, 4);
+  });
+
+  // --- Confirmar compra ---
   $('#ckConfirm').addEventListener('click', async () => {
     const delivery = $('input[name=delivery]:checked').value;
+    const paymentMethod = $('input[name=payment]:checked').value;
+    const err = $('#ckError');
+    err.classList.remove('show');
+
+    // Validación de dirección/tienda
+    if (delivery === 'servientrega' && !$('#ckAddress').value.trim()) {
+      err.textContent = 'Ingresa la dirección de envío.'; err.classList.add('show'); return;
+    }
+    if (delivery === 'retiro' && !$('#ckStore').value) {
+      err.textContent = 'Selecciona la tienda de retiro.'; err.classList.add('show'); return;
+    }
+
+    // Validación de tarjeta
+    let cardData = {};
+    if (paymentMethod === 'tarjeta') {
+      const num = cardNumInput.value.replace(/\s/g, '');
+      const name = $('#ckCardName').value.trim();
+      const expiry = expiryInput.value.trim();
+      const cvv = cvvInput.value.trim();
+
+      // Quitar errores previos
+      [cardNumInput, $('#ckCardName'), expiryInput, cvvInput].forEach(el => el.classList.remove('card-error'));
+
+      let hasError = false;
+      if (num.length < 13 || num.length > 16) { cardNumInput.classList.add('card-error'); hasError = true; }
+      if (!name) { $('#ckCardName').classList.add('card-error'); hasError = true; }
+      if (!/^\d{2}\/\d{2}$/.test(expiry)) { expiryInput.classList.add('card-error'); hasError = true; }
+      else {
+        const month = parseInt(expiry.slice(0, 2));
+        if (month < 1 || month > 12) { expiryInput.classList.add('card-error'); hasError = true; }
+      }
+      if (cvv.length < 3) { cvvInput.classList.add('card-error'); hasError = true; }
+
+      if (hasError) {
+        err.textContent = 'Completa correctamente todos los datos de la tarjeta.'; err.classList.add('show'); return;
+      }
+      cardData = { cardNumber: num, cardName: name, cardExpiry: expiry, cardCvv: cvv };
+    }
+
     const btn = $('#ckConfirm');
     btn.disabled = true;
+    btn.textContent = 'Procesando…';
     try {
       const result = await api('/orders', {
         method: 'POST',
@@ -364,10 +481,11 @@ async function openCheckout() {
           buyerId: state.session?.id || null,
           buyerName: state.session?.name || 'Invitado',
           productIds: state.cart.map(i => i.id),
-          paymentMethod: $('#ckPayment').value,
+          paymentMethod,
           deliveryMethod: delivery,
           address: delivery === 'servientrega' ? $('#ckAddress').value.trim() : null,
           storeId: delivery === 'retiro' ? Number($('#ckStore').value) : null,
+          ...cardData,
         },
       });
       state.cart = []; saveCart();
@@ -380,15 +498,17 @@ async function openCheckout() {
         <div class="cert-box"><strong>N° de seguimiento: ${result.orderNumber}</strong>
           ${result.trackingGuide ? `<div class="cert-line"><span>Guía Servientrega</span><b>${result.trackingGuide}</b></div>` : ''}
           <div class="cert-line"><span>Total pagado</span><b>${money(result.total)}</b></div>
+          <div class="cert-line"><span>Método de pago</span><b>${paymentMethod === 'tarjeta' ? '💳 Tarjeta ····' + (cardData.cardNumber || '').slice(-4) : '🏦 Transferencia'}</b></div>
         </div>
         <div class="modal-actions">
           <button class="btn btn-outline" onclick="closeModal()">Cerrar</button>
           <button class="btn btn-blue" onclick="closeModal(); trackOrder('${result.orderNumber}'); location.hash='#/seguimiento'">Seguir mi pedido</button>
         </div>`);
-    } catch (err) {
-      $('#ckError').textContent = err.message;
-      $('#ckError').classList.add('show');
+    } catch (err2) {
+      err.textContent = err2.message;
+      err.classList.add('show');
       btn.disabled = false;
+      btn.textContent = 'Confirmar compra';
     }
   });
 }

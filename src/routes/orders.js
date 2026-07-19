@@ -14,11 +14,24 @@ const FLOW = {
 router.post('/', async (req, res, next) => {
   const conn = await db.getConnection();
   try {
-    const { buyerId, buyerName, productIds, paymentMethod, deliveryMethod, address, storeId } = req.body;
+    const { buyerId, buyerName, productIds, paymentMethod, deliveryMethod, address, storeId,
+            cardNumber, cardName, cardExpiry, cardCvv } = req.body;
     if (!Array.isArray(productIds) || !productIds.length) return res.status(400).json({ error: 'El carrito está vacío.' });
     if (!['tarjeta', 'transferencia'].includes(paymentMethod)) return res.status(400).json({ error: 'Selecciona un método de pago.' });
     if (deliveryMethod === 'servientrega' && !address) return res.status(400).json({ error: 'Ingresa la dirección de envío.' });
     if (deliveryMethod === 'retiro' && !storeId) return res.status(400).json({ error: 'Selecciona la tienda de retiro.' });
+    // Validación de datos de tarjeta (POC: no se almacenan)
+    if (paymentMethod === 'tarjeta') {
+      if (!cardNumber || !cardName || !cardExpiry || !cardCvv)
+        return res.status(400).json({ error: 'Completa todos los datos de la tarjeta.' });
+      const num = String(cardNumber).replace(/\D/g, '');
+      if (num.length < 13 || num.length > 16)
+        return res.status(400).json({ error: 'El número de tarjeta no es válido.' });
+      if (!/^\d{2}\/\d{2}$/.test(cardExpiry))
+        return res.status(400).json({ error: 'La fecha de vencimiento no es válida (MM/AA).' });
+      if (String(cardCvv).length < 3 || String(cardCvv).length > 4)
+        return res.status(400).json({ error: 'El CVV no es válido.' });
+    }
 
     await conn.beginTransaction();
     const [products] = await conn.query(
