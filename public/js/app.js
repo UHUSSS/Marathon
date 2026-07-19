@@ -375,6 +375,21 @@ async function openCheckout() {
       </div>
       <div class="card-secure"><span class="lock-icon">🛡️</span> Pago seguro · Tus datos están protegidos</div>
     </div>
+    <div id="transferFields" class="transfer-fields" hidden>
+      <div class="transfer-fields-title">🏦 Datos para la transferencia</div>
+      <div class="transfer-detail"><span>Banco</span><strong>Banco Pichincha</strong></div>
+      <div class="transfer-detail"><span>Tipo de cuenta</span><strong>Cuenta de Ahorros</strong></div>
+      <div class="transfer-detail"><span>N° de cuenta</span><strong>2205 1234 5678</strong></div>
+      <div class="transfer-detail"><span>Titular</span><strong>Marathon CycleBack S.A.</strong></div>
+      <div class="transfer-detail"><span>RUC</span><strong>1791234567001</strong></div>
+      <div class="transfer-detail"><span>Monto a transferir</span><strong>${money(total)}</strong></div>
+      <div class="transfer-note">⚠️ Realiza la transferencia por el monto exacto de <strong>${money(total)}</strong> y sube tu comprobante a continuación. Tu pedido se confirmará una vez verificado el pago.</div>
+      <label class="transfer-voucher" id="voucherDrop">
+        📎 Haz clic aquí para subir tu comprobante de pago
+        <input type="file" id="voucherInput" accept="image/*,.pdf" hidden>
+      </label>
+      <div id="voucherName" style="text-align:center;font-size:12px;color:var(--verde);font-weight:700;margin-top:6px"></div>
+    </div>
     <p class="form-error" id="ckError"></p>
     <div class="modal-actions">
       <button class="btn btn-outline" onclick="closeModal()">Volver</button>
@@ -391,14 +406,25 @@ async function openCheckout() {
   };
   $$('input[name=delivery]').forEach(r => r.addEventListener('change', syncDelivery));
 
-  // --- Sincronizar método de pago (mostrar/ocultar campos de tarjeta) ---
+  // --- Sincronizar método de pago (mostrar/ocultar campos de tarjeta o transferencia) ---
   const syncPayment = () => {
     const isTarjeta = $('input[name=payment]:checked').value === 'tarjeta';
     $('#cardFields').hidden = !isTarjeta;
+    $('#transferFields').hidden = isTarjeta;
     $('#optTarjeta').classList.toggle('selected', isTarjeta);
     $('#optTransfer').classList.toggle('selected', !isTarjeta);
   };
   $$('input[name=payment]').forEach(r => r.addEventListener('change', syncPayment));
+
+  // --- Comprobante de transferencia ---
+  let voucherFile = null;
+  $('#voucherDrop').addEventListener('click', () => $('#voucherInput').click());
+  $('#voucherInput').addEventListener('change', (e) => {
+    if (e.target.files.length) {
+      voucherFile = e.target.files[0];
+      $('#voucherName').textContent = '✅ ' + voucherFile.name;
+    }
+  });
 
   // --- Formateo automático del número de tarjeta ---
   const cardNumInput = $('#ckCardNumber');
@@ -442,6 +468,11 @@ async function openCheckout() {
     }
     if (delivery === 'retiro' && !$('#ckStore').value) {
       err.textContent = 'Selecciona la tienda de retiro.'; err.classList.add('show'); return;
+    }
+
+    // Validación de transferencia: comprobante obligatorio
+    if (paymentMethod === 'transferencia' && !voucherFile) {
+      err.textContent = 'Sube el comprobante de tu transferencia bancaria para confirmar la compra.'; err.classList.add('show'); return;
     }
 
     // Validación de tarjeta
