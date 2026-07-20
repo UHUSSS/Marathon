@@ -42,8 +42,8 @@ npm start          # levanta el servidor
 
 | Campo | Valor |
 |---|---|
-| Correo | `anahy@marathon.ec` |
-| Contraseña | `marathon123` |
+| Correo | `samarabarrera15@gmail.com` |
+| Contraseña | `Sam01234` |
 
 ## Las 4 páginas
 
@@ -75,7 +75,7 @@ npm start          # levanta el servidor
 
 ## Datos demo destacados
 
-- Panel de Anahy con el ejemplo exacto de la guía: **$296,00 ventas − $23,68 comisión (8%) = $272,32 de saldo**.
+- Panel de Samara con el ejemplo exacto de la guía: **$296,00 ventas − $23,68 comisión (8%) = $272,32 de saldo**.
 - Pedidos de ejemplo: `MKT-2026-00145` (Servientrega, enviado) · `MKT-2026-00132` (retiro, listo) · `MKT-2026-00118` (entregado).
 - Los textos legales del footer se editan en la tabla `content` sin tocar código.
 

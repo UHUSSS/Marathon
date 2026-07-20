@@ -6,7 +6,7 @@ USE marathon_cycleback;
 
 -- ---------- Usuarios ----------
 INSERT INTO users (id, name, email, password, initials, is_verified_seller, bank_account_last4) VALUES
-(1, 'Anahy Herrera',  'anahy@marathon.ec',  'marathon123', 'AH', 1, '4321'),
+(1, 'Samara Barrera', 'samarabarrera15@gmail.com', 'Sam01234', 'SB', 1, '4321'),
 (2, 'Carlos Mendoza', 'carlos@marathon.ec', 'marathon123', 'CM', 1, '8810'),
 (3, 'María Paredes',  'maria@marathon.ec',  'marathon123', 'MP', 1, '2245');
 
@@ -33,13 +33,13 @@ INSERT INTO products (id, seller_id, name, category, size, condition_state, desc
 (11, 2, 'Medias estampadas Fun Run (x2)',      'accesorios', 'M',  'Excelente', 'Pack de 2 pares de medias deportivas con estampado divertido. Un par sin estrenar.',                                      12.50, 'MS-2025-017429', 'verificada', 'MV-2026-0196', NOW() - INTERVAL 6 DAY,  0, '🧦', '["img/products/socks-1.jpg"]', 15),
 (12, 3, 'Licra estampada fitness',             'shorts',     'L',  'Muy bueno', 'Licra estampada de alto rendimiento para fitness. Excelente elasticidad y estado.',                                       26.50, 'MS-2024-171203', 'verificada', 'MV-2026-0179', NOW() - INTERVAL 11 DAY, 0, '🩳', '["img/products/leggings-1.jpg","img/products/shorts-3.jpg"]', 8),
 
--- ---------- Publicaciones activas de Anahy (vendedora demo) ----------
+-- ---------- Publicaciones activas de Samara (vendedora demo) ----------
 (13, 1, 'Camiseta estampada Urban negra',      'camisetas',  'M',  'Excelente', 'Camiseta negra con estampado urbano, tela suave de algodón. Usada 3 veces, como nueva.',                                  24.90, 'MS-2025-031870', 'verificada', 'MV-2026-0201', NOW() - INTERVAL 4 DAY,  1, '👕', '["img/products/tee-model.jpg","img/products/tee-white.jpg"]', 34),
 (14, 1, 'Zapatillas Court blancas',            'calzado',    '38', 'Muy bueno', 'Zapatillas court de cuero blanco, compradas en Marathon Quicentro. Suela impecable.',                                     49.90, 'MS-2024-129483', 'verificada', 'MV-2026-0168', NOW() - INTERVAL 18 DAY, 0, '👟', '["img/products/shoe-white.jpg","img/products/shoe-pair.jpg"]', 51),
 (15, 1, 'Licra Adidas Techfit 7/8',            'shorts',     'S',  'Excelente', 'Licra de entrenamiento Adidas Techfit largo 7/8, tiro alto. Sin transparencias, perfecto estado.',                        26.50, 'MS-2025-029741', 'verificada', 'MV-2026-0199', NOW() - INTERVAL 5 DAY,  0, '🩳', '["img/products/leggings-1.jpg","img/products/shorts-3.jpg"]', 22),
 (16, 1, 'Bolso deportivo outdoor',             'accesorios', 'Única', 'Muy bueno', 'Bolso deportivo outdoor azul con correas ajustables. Ideal para entrenar al aire libre.',                              13.90, 'MS-2025-033012', 'en_revision', NULL, NULL, 0, '👜', '["img/products/waistbag-1.jpg","img/products/backpack-1.jpg"]', 6),
 
--- ---------- Productos ya vendidos de Anahy (historial de ventas) ----------
+-- ---------- Productos ya vendidos de Samara (historial de ventas) ----------
 (17, 1, 'Camiseta Training Dry-Fit',           'camisetas',  'M',  'Muy bueno', 'Camiseta de entrenamiento blanca.', 28.00, 'MS-2024-144302', 'vendido', 'MV-2026-0135', NOW() - INTERVAL 45 DAY, 0, '👕', '["img/products/tee-white.jpg"]', 0),
 (18, 1, 'Zapatillas Runner Pro',               'calzado',    '38', 'Muy bueno', 'Zapatillas de running.',     95.00, 'MS-2024-101877', 'vendido', 'MV-2026-0128', NOW() - INTERVAL 50 DAY, 0, '👟', '["img/products/shoe-blue.jpg"]', 0),
 (19, 1, 'Licra Running Flex',                  'shorts',     'S',  'Excelente', 'Licra de competencia.',      22.00, 'MS-2025-004190', 'vendido', 'MV-2026-0148', NOW() - INTERVAL 35 DAY, 0, '🩳', '["img/products/shorts-3.jpg"]', 0),
@@ -52,18 +52,18 @@ INSERT INTO products (id, seller_id, name, category, size, condition_state, desc
 (25, 1, 'Licra CrossTraining',                 'shorts',     'S',  'Muy bueno', 'Licra de crossfit.',         25.00, 'MS-2024-160092', 'vendido', 'MV-2026-0104', NOW() - INTERVAL 72 DAY, 0, '🩳', '["img/products/leggings-1.jpg"]', 0),
 (26, 1, 'Gorra Running UV',                    'accesorios', 'Única', 'Excelente', 'Gorra con protección UV.', 15.00, 'MS-2025-001764', 'vendido', 'MV-2026-0110', NOW() - INTERVAL 68 DAY, 0, '🧢', '["img/products/cap-1.jpg"]', 0);
 
--- ---------- Pedidos demo (compras de Anahy como compradora) ----------
+-- ---------- Pedidos demo (compras de Samara como compradora) ----------
 INSERT INTO orders (id, order_number, buyer_id, buyer_name, total, payment_method, delivery_method, delivery_address, store_id, tracking_guide, estimated_delivery, status, delivered_at, created_at) VALUES
-(1, 'MKT-2026-00145', 1, 'Anahy Herrera', 78.50, 'tarjeta',       'servientrega', 'Av. de los Shyris N34-120 y Holanda, Quito', NULL, 'SE-778812345', CURDATE() + INTERVAL 2 DAY, 'enviado',      NULL,                     NOW() - INTERVAL 3 DAY),
-(2, 'MKT-2026-00132', 1, 'Anahy Herrera', 18.90, 'transferencia', 'retiro',       NULL, 1, NULL, NULL,                                                                              'listo_retiro', NULL,                     NOW() - INTERVAL 5 DAY),
-(3, 'MKT-2026-00118', 1, 'Anahy Herrera', 24.50, 'tarjeta',       'servientrega', 'Av. de los Shyris N34-120 y Holanda, Quito', NULL, 'SE-771198022', NULL,                        'entregado',    NOW() - INTERVAL 8 DAY,   NOW() - INTERVAL 12 DAY);
+(1, 'MKT-2026-00145', 1, 'Samara Barrera', 78.50, 'tarjeta',       'servientrega', 'Av. de los Shyris N34-120 y Holanda, Quito', NULL, 'SE-778812345', CURDATE() + INTERVAL 2 DAY, 'enviado',      NULL,                     NOW() - INTERVAL 3 DAY),
+(2, 'MKT-2026-00132', 1, 'Samara Barrera', 18.90, 'transferencia', 'retiro',       NULL, 1, NULL, NULL,                                                                              'listo_retiro', NULL,                     NOW() - INTERVAL 5 DAY),
+(3, 'MKT-2026-00118', 1, 'Samara Barrera', 24.50, 'tarjeta',       'servientrega', 'Av. de los Shyris N34-120 y Holanda, Quito', NULL, 'SE-771198022', NULL,                        'entregado',    NOW() - INTERVAL 8 DAY,   NOW() - INTERVAL 12 DAY);
 
 INSERT INTO order_items (order_id, product_id, seller_id, price, commission, seller_amount, payout_status, sold_at) VALUES
 (1, 2, 2, 78.50, 6.28, 72.22, 'pendiente', NOW() - INTERVAL 3 DAY),
 (2, 3, 3, 18.90, 1.51, 17.39, 'pendiente', NOW() - INTERVAL 5 DAY),
 (3, 4, 3, 24.50, 1.96, 22.54, 'cobrado',   NOW() - INTERVAL 12 DAY);
 
--- ---------- Ventas de Anahy (este mes: 6 ventas, $324 brutos → 5 pendientes = $296.00) ----------
+-- ---------- Ventas de Samara (este mes: 6 ventas, $324 brutos → 5 pendientes = $296.00) ----------
 INSERT INTO orders (id, order_number, buyer_id, buyer_name, total, payment_method, delivery_method, delivery_address, store_id, tracking_guide, status, delivered_at, created_at) VALUES
 (4, 'MKT-2026-00098', 2, 'Carlos Mendoza', 28.00, 'tarjeta',       'servientrega', 'Av. República del Salvador, Quito',  NULL, 'SE-770045611', 'entregado', DATE_FORMAT(NOW(),'%Y-%m-01') + INTERVAL 4 DAY, DATE_FORMAT(NOW(),'%Y-%m-01') + INTERVAL 1 DAY),
 (5, 'MKT-2026-00104', 3, 'María Paredes',  95.00, 'tarjeta',       'servientrega', 'Cdla. Kennedy Norte, Guayaquil',     NULL, 'SE-770098123', 'entregado', DATE_FORMAT(NOW(),'%Y-%m-01') + INTERVAL 6 DAY, DATE_FORMAT(NOW(),'%Y-%m-01') + INTERVAL 3 DAY),
@@ -71,7 +71,7 @@ INSERT INTO orders (id, order_number, buyer_id, buyer_name, total, payment_metho
 (7, 'MKT-2026-00110', 3, 'María Paredes',  54.00, 'tarjeta',       'servientrega', 'Av. 9 de Octubre, Guayaquil',        NULL, 'SE-770112894', 'entregado', DATE_FORMAT(NOW(),'%Y-%m-01') + INTERVAL 9 DAY, DATE_FORMAT(NOW(),'%Y-%m-01') + INTERVAL 6 DAY),
 (8, 'MKT-2026-00114', 2, 'Carlos Mendoza', 35.00, 'tarjeta',       'retiro',       NULL, 4, NULL,                        'retirado',  DATE_FORMAT(NOW(),'%Y-%m-01') + INTERVAL 10 DAY, DATE_FORMAT(NOW(),'%Y-%m-01') + INTERVAL 8 DAY),
 (9, 'MKT-2026-00121', 3, 'María Paredes',  90.00, 'transferencia', 'servientrega', 'Urdesa Central, Guayaquil',          NULL, 'SE-770156730', 'entregado', DATE_FORMAT(NOW(),'%Y-%m-01') + INTERVAL 12 DAY, DATE_FORMAT(NOW(),'%Y-%m-01') + INTERVAL 9 DAY),
--- Ventas de Anahy el mes anterior (4 ventas, $150 brutos, ya cobradas)
+-- Ventas de Samara el mes anterior (4 ventas, $150 brutos, ya cobradas)
 (10, 'MKT-2026-00061', 2, 'Carlos Mendoza', 30.00, 'tarjeta',       'servientrega', 'Av. República del Salvador, Quito', NULL, 'SE-769871002', 'entregado', DATE_SUB(DATE_FORMAT(NOW(),'%Y-%m-01'), INTERVAL 20 DAY), DATE_SUB(DATE_FORMAT(NOW(),'%Y-%m-01'), INTERVAL 24 DAY)),
 (11, 'MKT-2026-00064', 3, 'María Paredes',  80.00, 'tarjeta',       'retiro',       NULL, 3, NULL,                       'retirado',  DATE_SUB(DATE_FORMAT(NOW(),'%Y-%m-01'), INTERVAL 18 DAY), DATE_SUB(DATE_FORMAT(NOW(),'%Y-%m-01'), INTERVAL 21 DAY)),
 (12, 'MKT-2026-00070', 2, 'Carlos Mendoza', 25.00, 'transferencia', 'servientrega', 'La Carolina, Quito',                NULL, 'SE-769910453', 'entregado', DATE_SUB(DATE_FORMAT(NOW(),'%Y-%m-01'), INTERVAL 14 DAY), DATE_SUB(DATE_FORMAT(NOW(),'%Y-%m-01'), INTERVAL 17 DAY)),
@@ -91,12 +91,12 @@ INSERT INTO order_items (order_id, product_id, seller_id, price, commission, sel
 (12, 25, 1, 25.00, 2.00, 23.00, 'cobrado', DATE_SUB(DATE_FORMAT(NOW(),'%Y-%m-01'), INTERVAL 17 DAY)),
 (13, 26, 1, 15.00, 1.20, 13.80, 'cobrado', DATE_SUB(DATE_FORMAT(NOW(),'%Y-%m-01'), INTERVAL 12 DAY));
 
--- Cobro anterior de Anahy (mes pasado)
+-- Cobro anterior de Samara (mes pasado)
 INSERT INTO payouts (seller_id, amount, method, coupon_code, status, created_at) VALUES
 (1, 138.00, 'deposito', NULL, 'procesado', DATE_SUB(DATE_FORMAT(NOW(),'%Y-%m-01'), INTERVAL 8 DAY)),
 (1, 25.76,  'cupon', 'MCB-CUP-88213', 'procesado', DATE_FORMAT(NOW(),'%Y-%m-01') + INTERVAL 2 DAY);
 
--- ---------- Reseñas de Anahy (24 reseñas, promedio 4.8) ----------
+-- ---------- Reseñas de Samara (24 reseñas, promedio 4.8) ----------
 INSERT INTO reviews (seller_id, rating, tag) VALUES
 (1,5,'Entrega rápida'),(1,5,'Producto como descrito'),(1,5,'Buen empaque'),(1,5,'Entrega rápida'),
 (1,5,'Producto como descrito'),(1,5,'Producto como descrito'),(1,5,'Entrega rápida'),(1,5,'Buen empaque'),

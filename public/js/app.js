@@ -1147,11 +1147,10 @@ function openLoginModal(redirect = null) {
     <p>Inicia sesión con tu cuenta de cliente Marathon para vender artículos y ver tus pedidos.</p>
     <div class="form-grid">
       <div class="field-full"><label>Correo electrónico</label>
-        <input type="email" id="loginEmail" value="anahy@marathon.ec"></div>
+        <input type="email" id="loginEmail" placeholder="correo@ejemplo.com"></div>
       <div class="field-full"><label>Contraseña</label>
-        <input type="password" id="loginPass" value="marathon123"></div>
+        <input type="password" id="loginPass" placeholder="Tu contraseña"></div>
     </div>
-    <p style="font-size:12px">💡 Demo: <strong>anahy@marathon.ec</strong> / <strong>marathon123</strong></p>
     <p class="form-error" id="loginError"></p>
     <div class="modal-actions">
       <button class="btn btn-outline" onclick="closeModal()">Cancelar</button>
